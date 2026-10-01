@@ -149,30 +149,27 @@ else:
             )
 
             input_scaled = scaler.transform(input_data)
+             prediction = rf_model.predict(input_scaled)[0]
 
-            prediction = rf_model.predict(
-                input_scaled
-            )[0]
+probabilities = rf_model.predict_proba(input_scaled)[0]
 
-            probabilities = rf_model.predict_proba(
-                input_scaled
-            )[0]
-            prediction = int(prediction)
+class_index = list(rf_model.classes_).index(prediction)
 
-            confidence = probabilities[prediction] * 100
+confidence = probabilities[class_index] * 100
 
+if str(prediction).lower() in ["1", "abnormal"]:
 
-            if prediction == 1:
+    st.error(
+        f"Abnormal — Confidence: {confidence:.2f}%"
+    )
 
-                st.error(
-                    f"Abnormal — Confidence: {confidence:.2f}%"
-                )
+else:
 
-            else:
+    st.success(
+        f"Normal — Confidence: {confidence:.2f}%"
 
-                st.success(
-                    f"Normal — Confidence: {confidence:.2f}%"
-                )
+            
+
 
 
     # ==============================
