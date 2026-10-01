@@ -157,6 +157,7 @@ else:
             probabilities = rf_model.predict_proba(
                 input_scaled
             )[0]
+            prediction = int(prediction)
 
             confidence = probabilities[prediction] * 100
 
