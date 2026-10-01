@@ -1,4 +1,4 @@
-
+```python
 import streamlit as st
 import hashlib
 import joblib
@@ -149,27 +149,26 @@ else:
             )
 
             input_scaled = scaler.transform(input_data)
-             prediction = rf_model.predict(input_scaled)[0]
 
-probabilities = rf_model.predict_proba(input_scaled)[0]
+            prediction = rf_model.predict(input_scaled)[0]
 
-class_index = list(rf_model.classes_).index(prediction)
+            probabilities = rf_model.predict_proba(input_scaled)[0]
 
-confidence = probabilities[class_index] * 100
+            class_index = list(rf_model.classes_).index(prediction)
 
-if str(prediction).lower() in ["1", "abnormal"]:
+            confidence = probabilities[class_index] * 100
 
-    st.error(
-        f"Abnormal — Confidence: {confidence:.2f}%"
-    )
+            if str(prediction).lower() in ["1", "abnormal"]:
 
-else:
+                st.error(
+                    f"Abnormal — Confidence: {confidence:.2f}%"
+                )
 
-    st.success(
-        f"Normal — Confidence: {confidence:.2f}%"
+            else:
 
-            
-
+                st.success(
+                    f"Normal — Confidence: {confidence:.2f}%"
+                )
 
 
     # ==============================
@@ -360,3 +359,4 @@ else:
                 )
 
                 plt.close(fig)
+```
