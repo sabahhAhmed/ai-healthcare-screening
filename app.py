@@ -359,4 +359,3 @@ else:
                 )
 
                 plt.close(fig)
-```
